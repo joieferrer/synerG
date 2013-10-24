@@ -1,0 +1,565 @@
+<?php 
+include('connection.php');
+include ('queryfunction.php'); 
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>yeahbah...</title>
+<script language="javascript" src="calendar/calendar.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#menuwrapper ul li").mouseover(function(e) {$(this).addClass(" iehover ");});
+		$("#menuwrapper ul li").mouseout(function(e) {$(this).removeClass(" iehover ");});
+	});
+</script>
+<script>
+$("#myselect").on("change", function() {
+    $("#" + $(this).val()).show().siblings().hide();
+})
+</script>
+<script type="text/javascript">
+  $(function() {
+    $('#query1').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form1').show();         
+        } else { $('#form1').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query2').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form2').show();         
+        } else { $('#form2').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query3').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form3').show();         
+        } else { $('#form3').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query4').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form4').show();         
+        } else { $('#form4').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query5').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form5').show();         
+        } else { $('#form5').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query6').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form6').show();         
+        } else { $('#form6').hide(); }
+    });
+    
+});
+  $(function() {
+    $('#query7').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form7').show();         
+        } else { $('#form7').hide(); }
+    });
+    
+});  
+  $(function() {
+    $('#query8').on('change',function() {
+        if($(this).is(":checked")) {
+           $('#form8').show();         
+        } else { $('#form8').hide(); }
+    });
+    
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="css/main.css"> 
+<link href="css_flyoutverticalmenu.css" type="text/css" rel="Stylesheet" />
+</head>
+
+<body>
+<div id="logo">
+	<img src="css/logo.png">
+</div>
+
+<!--<div id="queryselection">
+	<form id="form-shower">
+	<select id="myselect">
+		<option value="" selected="selected"></option>
+		<option value="form1">Form 1</option>
+		<option value="form2">Form 2</option>
+		<option value="form3">Form 3</option>
+		<option value="form4">Form 4</option>
+		<option value="form5">Form 5</option>
+		<option value="form6">Form 6</option>
+		<option value="form7">Form 7</option>
+		<option value="form8">Form 8</option>
+	</select>
+	</form>
+</div>-->
+
+<div id="menuwrapper">
+	<h3>Please select your task:</h3>
+	<input type="checkbox" name="ItemName1" id="query1">Query using Employee Name</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query2">Query using Employee Name with Filename</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query3">Query using Employee Name with Month and Year</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query4">Query using Employee Name with Date Range</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query5">Bad Score Query using Employee Name</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query6">Bad Score Query using Employee Name with Filename</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query7">Bad Score Query using Employee Name with Month and Year</input>
+	<br>
+	<input type="checkbox" name="ItemName1" id="query8">Bad Score Query using Employee Name with Date Range</input>
+</div>
+
+<div id="content2">
+	<?php
+	echo $content;
+	?>
+</div>
+
+<div id="content1">
+	<form name="form1" id="form1" action="" method="post" style="display: none;">
+		<input type="text" name="employee" id="employee" value="Employee Name"></input>
+		<input type="submit"></input>	
+	</form>
+
+	<form name="form2" id="form2" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform2" id="employeeform2" value="Employee Name"></input>
+
+		<?php
+			filenamedropdown();
+		?>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form3" id="form3" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform3" id="employeeform3" value="Employee Name"></input>
+
+		<?php
+			yeardropdown();
+			monthdropdown();
+		?>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form4" id="form4" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform4" id="employeeform4" value="Employee Name"></input>
+
+		<?php
+			calendar();
+		?>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form5" id="form5" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform5" id="employeeform5" value="Employee Name"></input>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form6" id="form6" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform6" id="employeeform6" value="Employee Name"></input>
+
+		<?php
+			filenamedropdown();
+		?>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form7" id="form7" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform7" id="employeeform7" value="Employee Name" ></input>
+
+		<?php
+			yeardropdown();
+			monthdropdown();
+		?>
+		<input type="submit"></input>
+	</form>
+
+	<form name="form8" id="form8" action="" method="post" style="display: none;">
+		<input type="text" name="employeeform8" id="employeeform8" value="Employee Name"></input>
+
+		<?php
+			calendarbs();
+		?>
+		<input type="submit"></input>
+	</form>
+</div>
+
+<div id="queryresult">
+<?php
+	//value for CSVname
+	$CSVname = $_POST['tmp_name'];
+
+	//value for standard query
+	$value1 = $_POST['employee']; 
+
+	$value2 = $_POST['employeeform2'];  //value for scorer name
+	$value3 = $_POST['filename']; //value for file_id
+	
+	$value4 = $_POST['employeeform3']; 
+	$value5 = $_POST['year'];     //value for year in upload_date
+	$value6 = $_POST['month'];	  //value for month in upload_date
+	
+	$value7 = $_POST['employeeform4']; 
+	$value8 = isset($_REQUEST["fromdate"]) ? $_REQUEST["fromdate"] : "";   //value of fromdate in upload_date
+	$value9 = isset($_REQUEST["todate"]) ? $_REQUEST["todate"] : "";       //value of todate in upload_date
+
+	//value for BadScore Query
+	$value10 = $_POST['employeeform5']; 
+	
+	$value11 = $_POST['employeeform6'];  //value for scorer name
+	$value12 = $_POST['filename']; //value for file_id
+	
+	$value13 = $_POST['employeeform7']; 
+	$value14 = $_POST['year'];     //value for year in upload_date
+	$value15 = $_POST['month'];	  //value for month in upload_date
+	
+	$value16 = $_POST['employeeform8']; 
+	$value17 = isset($_REQUEST["fromdate"]) ? $_REQUEST["fromdate"] : "";   //value of fromdate in upload_date
+	$value18 = isset($_REQUEST["todate"]) ? $_REQUEST["todate"] : "";       //value of todate in upload_date
+	
+
+	if(isset($value1)){
+	scorerbelow10_querydetail($value1);
+	//scorerbelow10_querytotal($value1);
+	//scorer1120_querydetail($value);
+	//scorer1120_querytotal($value);
+	//scorer2130_querydetail($value);
+	//scorer2130_querytotal($value);
+	//scorer3140_querydetail($value);
+	//scorer3140_querytotal($value);
+	//scorer4150_querydetail($value);
+	//scorer4150_querytotal($value);
+	//scorer5160_querydetail($value);
+	//scorer5160_querytotal($value);
+	//scorer61above_querydetail($value);
+	//scorer61above_querytotal($value);
+	//totalnumberofscores_scorer($value);
+	//totalsumofscores_scorer($value);
+	//totalaverageofscores_scorer($value);
+	}//end of form1	
+
+	if(isset($value2) && isset($value3)){
+	scorerbelow10withfile_querydetail($value2, $value3);
+	//scorerbelow10withfile_querytotal($value2, $value3);
+	//scorer1120withfile_querydetail($value2, $value3);
+	//scorer1120withfile_querytotal($value2, $value3);
+	//scorer2130withfile_querydetail($value2, $value3);
+	//scorer2130withfile_querytotal($value2, $value3);
+	//scorer3140withfile_querydetail($value2, $value3);
+	//scorer3140withfile_querytotal($value2, $value3);
+	//scorer4150withfile_querydetail($value2, $value3);
+	//scorer4150withfile_querytotal($value2, $value3);
+	//scorer5160withfile_querydetail($value2, $value3);
+	//scorer5160withfile_querytotal($value2, $value3);
+	//scorer61abovewithfile_querydetail($value2, $value3);
+	//scorer61abovewithfile_querytotal($value2, $value3);
+	//totalnumberofscoreswithfile_scorer($value2, $value3);
+	//totalsumofscoreswithfile_scorer($value2, $value3);
+	//totalaverageofscoreswithfile_scorer($value2, $value3);
+	}//end of form2 / query using scorer and file_id
+
+	if(isset($value4) && isset($value5) && isset($value6)){
+	scorerbelow10withyearmonth_querydetail($value4, $value5, $value6);
+	//scorerbelow10withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer1120withyearmonth_querydetail($value4, $value5, $value6);
+	//scorer1120withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer2130withyearmonth_querydetail($value4, $value5, $value6);
+	//scorer2130withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer3140withyearmonth_querydetail($value4, $value5, $value6);
+	//scorer3140withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer4150withyearmonth_querydetail($value4, $value5, $value6);
+	//scorer4150withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer5160withyearmonth_querydetail($value4, $value5, $value6);
+	//scorer5160withyearmonth_querytotal($value4, $value5, $value6);
+	//scorer61abovewithyearmonth_querydetail($value4, $value5, $value6);
+	//scorer61abovewithyearmonth_querytotal($value4, $value5, $value6);
+	//totalnumberofscoreswithyearmonth_scorer($value4, $value5, $value6);
+	//totalsumofscoreswithyearmonth_scorer($value4, $value5, $value6);
+	//totalaverageofscoreswithyearmonth_scorer($value4, $value5, $value6);
+	}//end of form3
+
+	if(isset($value7) && isset($value8) && isset($value9)){
+	//scorerbelow10withrange_querydetail($value7, $value8, $value9);
+	//scorerbelow10withrange_querytotal($value7, $value8, $value9);
+	//scorer1120withrange_querydetail($value7, $value8, $value9);
+	//scorer1120withrange_querytotal($value7, $value8, $value9);
+	//scorer2130withrange_querydetail($value7, $value8, $value9);
+	//scorer2130withrange_querytotal($value7, $value8, $value9);
+	//scorer3140withrange_querydetail($value7, $value8, $value9);
+	//scorer3140withrange_querytotal($value7, $value8, $value9);
+	//scorer4150withrange_querydetail($value7, $value8, $value9);
+	//scorer4150withrange_querytotal($value7, $value8, $value9);
+	//scorer5160withrange_querydetail($value7, $value8, $value9);
+	//scorer5160withrange_querytotal($value7, $value8, $value9);
+	//scorer61abovewithrange_querydetail($value7, $value8, $value9);
+	//scorer61abovewithrange_querytotal($value7, $value8, $value9);
+	//totalnumberofscoreswithrange_scorer($value7, $value8, $value9);
+	//totalsumofscoreswithrange_scorer($value7, $value8, $value9);
+	//totalaverageofscoreswithrange_scorer($value7, $value8, $value9);
+	}//end of form4
+
+	//bad score
+	if(isset($value10)){
+	//scorerbelow10_querydetailbs($value10);
+	//scorerbelow10_querytotalbs($value10);
+	//scorer1120_querydetailbs($value10);
+	//scorer1120_querytotalbs($value10);
+	//scorer2130_querydetailbs($value10);
+	//scorer2130_querytotalbs($value10);
+	//scorer3140_querydetailbs($value10);
+	//scorer3140_querytotalbs($value10);
+	//scorer4150_querydetailbs($value10);
+	//scorer4150_querytotalbs($value10);
+	//scorer5160_querydetailbs($value10);
+	//scorer5160_querytotalbs($value10);
+	//scorer61above_querydetailbs($value10);
+	//scorer61above_querytotalbs($value10);
+	//totalnumberofscores_scorerbs($value10);
+	//totalsumofscores_scorerbs($value10);
+	//totalaverageofscores_scorerbs($value10);
+	}//end of form5
+
+	if(isset($value11) && isset($value12)){
+	//scorerbelow10withfile_querydetailbs($value11, $value12);
+	//scorerbelow10withfile_querytotalbs($value11, $value12);
+	//scorer1120withfile_querydetailbs($value11, $value12);
+	//scorer1120withfile_querytotalbs($value11, $value12);
+	//scorer2130withfile_querydetailbs($value11, $value12);
+	//scorer2130withfile_querytotalbs($value11, $value12);
+	//scorer3140withfile_querydetailbs($value11, $value12);
+	//scorer3140withfile_querytotalbs($value11, $value12);
+	//scorer4150withfile_querydetailbs($value11, $value12);
+	//scorer4150withfile_querytotalbs($value11, $value12);
+	//scorer5160withfile_querydetailbs($value11, $value12);
+	//scorer5160withfile_querytotalbs($value11, $value12);
+	//scorer61abovewithfile_querydetailbs($value11, $value12);
+	//scorer61abovewithfile_querytotalbs($value11, $value12);
+	//totalnumberofscoreswithfile_scorerbs($value11, $value12);
+	//totalsumofscoreswithfile_scorerbs($value11, $value12);
+	//totalaverageofscoreswithfile_scorerbs($value11, $value12);
+	}//end of form6 / query using scorer and file_id
+
+
+	if(isset($value13) && isset($value14) && isset($value15)){
+	//scorerbelow10withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorerbelow10withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer1120withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer1120withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer2130withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer2130withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer3140withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer3140withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer4150withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer4150withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer5160withyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer5160withyearmonth_querytotalbs($value13, $value14, $value15);
+	//scorer61abovewithyearmonth_querydetailbs($value13, $value14, $value15);
+	//scorer61abovewithyearmonth_querytotalbs($value13, $value14, $value15);
+	//totalnumberofscoreswithyearmonth_scorerbs($value13, $value14, $value15;
+	//totalsumofscoreswithyearmonth_scorerbs($value13, $value14, $value15);
+	//totalaverageofscoreswithyearmonth_scorerbs($value13, $value14, $value15);
+	}//end of form7
+
+	if(isset($value16) && isset($value17) && isset($value18)){
+	//scorerbelow10withrange_querydetailbs($value16, $value17, $value18);
+	//scorerbelow10withrange_querytotalbs($value16, $value17, $value18);
+	//scorer1120withrange_querydetailbs($value16, $value17, $value18);
+	//scorer1120withrange_querytotalbs($value16, $value17, $value18);
+	//scorer2130withrange_querydetailbs($value16, $value17, $value18);
+	//scorer2130withrange_querytotalbs($value16, $value17, $value18);
+	//scorer3140withrange_querydetailbs($value16, $value17, $value18);
+	//scorer3140withrange_querytotalbs($value16, $value17, $value18);
+	//scorer4150withrange_querydetailbs($value16, $value17, $value18);
+	//scorer4150withrange_querytotalbs($value16, $value17, $value18);
+	//scorer5160withrange_querydetailbs($value16, $value17, $value18);
+	//scorer5160withrange_querytotalbs($value16, $value17, $value18);
+	//scorer61abovewithrange_querydetailbs($value16, $value17, $value18);
+	//scorer61abovewithrange_querytotalbs($value16, $value17, $value18);
+	//totalnumberofscoreswithrange_scorerbs($value16, $value17, $value18);
+	//totalsumofscoreswithrange_scorerbs($value16, $value17, $value18);
+	//totalaverageofscoreswithrange_scorerbs($value16, $value17, $value18);
+	}//end of form8
+
+
+	//if(!empty($value)) {	
+	//scorerbelow10_querydetail($value);
+	//scorerbelow10_querytotal($value);
+	//scorer1120_querydetail($value);
+	//scorer1120_querytotal($value);
+	//scorer2130_querydetail($value);
+	//scorer2130_querytotal($value);
+	//scorer3140_querydetail($value);
+	//scorer3140_querytotal($value);
+	//scorer4150_querydetail($value);
+	//scorer4150_querytotal($value);
+	//scorer5160_querydetail($value);
+	//scorer5160_querytotal($value);
+	//scorer61above_querydetail($value);
+	//scorer61above_querytotal($value);
+	//totalnumberofscores_scorer($value);
+	//totalsumofscores_scorer($value);
+	//totalaverageofscores_scorer($value);
+	
+	//form2
+	//scorerbelow10withfile_querydetail($value, $value2);
+	//scorerbelow10withfile_querytotal($value, $value2);
+	//scorer1120withfile_querydetail($value, $value2);
+	//scorer1120withfile_querytotal($value, $value2);
+	//scorer2130withfile_querydetail($value, $value2);
+	//scorer2130withfile_querytotal($value, $value2);
+	//scorer3140withfile_querydetail($value, $value2);
+	//scorer3140withfile_querytotal($value, $value2);
+	//scorer4150withfile_querydetail($value, $value2);
+	//scorer4150withfile_querytotal($value, $value2);
+	//scorer5160withfile_querydetail($value, $value2);
+	//scorer5160withfile_querytotal($value, $value2);
+	//scorer61abovewithfile_querydetail($value, $value2);
+	//scorer61abovewithfile_querytotal($value, $value2);
+	//totalnumberofscoreswithfile_scorer($value, $value2);
+	//totalsumofscoreswithfile_scorer($value, $value2);
+	//totalaverageofscoreswithfile_scorer($value, $value2);
+	
+	//form3
+	//scorerbelow10withyearmonth_querydetail($value, $value3, $value4);
+	//scorerbelow10withyearmonth_querytotal($value, $value3, $value4);
+	//scorer1120withyearmonth_querydetail($value, $value3, $value4);
+	//scorer1120withyearmonth_querytotal($value, $value3, $value4);
+	//scorer2130withyearmonth_querydetail($value, $value3, $value4);
+	//scorer2130withyearmonth_querytotal($value, $value3, $value4);
+	//scorer3140withyearmonth_querydetail($value, $value3, $value4);
+	//scorer3140withyearmonth_querytotal($value, $value3, $value4);
+	//scorer4150withyearmonth_querydetail($value, $value3, $value4);
+	//scorer4150withyearmonth_querytotal($value, $value3, $value4);
+	//scorer5160withyearmonth_querydetail($value, $value3, $value4);
+	//scorer5160withyearmonth_querytotal($value, $value3, $value4);
+	//scorer61abovewithyearmonth_querydetail($value, $value3, $value4);
+	//scorer61abovewithyearmonth_querytotal($value, $value3, $value4);
+	//totalnumberofscoreswithyearmonth_scorer($value, $value3, $value4);
+	//totalsumofscoreswithyearmonth_scorer($value, $value3, $value4);
+	//totalaverageofscoreswithyearmonth_scorer($value, $value3, $value4);
+	
+	//form4
+	//scorerbelow10withrange_querydetail($value, $value5, $value6);
+	//scorerbelow10withrange_querytotal($value, $value5, $value6);
+	//scorer1120withrange_querydetail($value, $value5, $value6);
+	//scorer1120withrange_querytotal($value, $value5, $value6);
+	//scorer2130withrange_querydetail($value, $value5, $value6);
+	//scorer2130withrange_querytotal($value, $value5, $value6);
+	//scorer3140withrange_querydetail($value, $value5, $value6);
+	//scorer3140withrange_querytotal($value, $value5, $value6);
+	//scorer4150withrange_querydetail($value, $value5, $value6);
+	//scorer4150withrange_querytotal($value, $value5, $value6);
+	//scorer5160withrange_querydetail($value, $value5, $value6);
+	//scorer5160withrange_querytotal($value, $value5, $value6);
+	//scorer61abovewithrange_querydetail($value, $value5, $value6);
+	//scorer61abovewithrange_querytotal($value, $value5, $value6);
+	//totalnumberofscoreswithrange_scorer($value, $value5, $value6);
+	//totalsumofscoreswithrange_scorer($value, $value5, $value6);
+	//totalaverageofscoreswithrange_scorer($value, $value5, $value6);
+	
+
+	//Bad Score Functions Marker
+	//form5
+	//scorerbelow10_querydetailbs($value);
+	//scorerbelow10_querytotalbs($value);
+	//scorer1120_querydetailbs($value);
+	//scorer1120_querytotalbs($value);
+	//scorer2130_querydetailbs($value);
+	//scorer2130_querytotalbs($value);
+	//scorer3140_querydetailbs($value);
+	//scorer3140_querytotalbs($value);
+	//scorer4150_querydetailbs($value);
+	//scorer4150_querytotalbs($value);
+	//scorer5160_querydetailbs($value);
+	//scorer5160_querytotalbs($value);
+	//scorer61above_querydetailbs($value);
+	//scorer61above_querytotalbs($value);
+	//totalnumberofscores_scorerbs($value);
+	//totalsumofscores_scorerbs($value);
+	//totalaverageofscores_scorerbs($value);
+	
+	//form6
+	//scorerbelow10withfile_querydetailbs($value, $value2);
+	//scorerbelow10withfile_querytotalbs($value, $value2);
+	//scorer1120withfile_querydetailbs($value, $value2);
+	//scorer1120withfile_querytotalbs($value, $value2);
+	//scorer2130withfile_querydetailbs($value, $value2);
+	//scorer2130withfile_querytotalbs($value, $value2);
+	//scorer3140withfile_querydetailbs($value, $value2);
+	//scorer3140withfile_querytotalbs($value, $value2);
+	//scorer4150withfile_querydetailbs($value, $value2);
+	//scorer4150withfile_querytotalbs($value, $value2);
+	//scorer5160withfile_querydetailbs($value, $value2);
+	//scorer5160withfile_querytotalbs($value, $value2);
+	//scorer61abovewithfile_querydetailbs($value, $value2);
+	//scorer61abovewithfile_querytotalbs($value, $value2);
+	//totalnumberofscoreswithfile_scorerbs($value, $value2);
+	//totalsumofscoreswithfile_scorerbs($value, $value2);
+	//totalaverageofscoreswithfile_scorerbs($value, $value2);
+	
+	//form7
+	//scorerbelow10withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorerbelow10withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer1120withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer1120withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer2130withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer2130withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer3140withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer3140withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer4150withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer4150withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer5160withyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer5160withyearmonth_querytotalbs($value, $value3, $value4);
+	//scorer61abovewithyearmonth_querydetailbs($value, $value3, $value4);
+	//scorer61abovewithyearmonth_querytotalbs($value, $value3, $value4);
+	//totalnumberofscoreswithyearmonth_scorerbs($value, $value3, $value4);
+	//totalsumofscoreswithyearmonth_scorerbs($value, $value3, $value4);
+	//totalaverageofscoreswithyearmonth_scorerbs($value, $value3, $value4);
+	
+	//form8
+	//scorerbelow10withrange_querydetailbs($value, $value8, $value9);
+	//scorerbelow10withrange_querytotalbs($value, $value8, $value9);
+	//scorer1120withrange_querydetailbs($value, $value8, $value9);
+	//scorer1120withrange_querytotalbs($value, $value8, $value9);
+	//scorer2130withrange_querydetailbs($value, $value8, $value9);
+	//scorer2130withrange_querytotalbs($value, $value8, $value9);
+	//scorer3140withrange_querydetailbs($value, $value8, $value9);
+	//scorer3140withrange_querytotalbs($value, $value8, $value9);
+	//scorer4150withrange_querydetailbs($value, $value8, $value9);
+	//scorer4150withrange_querytotalbs($value, $value8, $value9);
+	//scorer5160withrange_querydetailbs($value, $value8, $value9);
+	//scorer5160withrange_querytotalbs($value, $value8, $value9);
+	//scorer61abovewithrange_querydetailbs($value, $value8, $value9);
+	//scorer61abovewithrange_querytotalbs($value, $value8, $value9);
+	//totalnumberofscoreswithrange_scorerbs($value, $value8, $value9);
+	//totalsumofscoreswithrange_scorerbs($value, $value8, $value9);
+	//totalaverageofscoreswithrange_scorerbs($value, $value8, $value9);
+    //}
+
+?>
+</div>
+
+</body>
+</html>
